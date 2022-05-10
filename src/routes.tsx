@@ -4,6 +4,7 @@ import AddTask from './components/AddTask';
 import Tasks from './components/Tasks';
 import styles from './App.module.scss';
 import TaskDetails from './components/TaskDetails';
+import TaskProvider from './commun/contexts/Tasks';
 
 function AppRouter() {
   return (
@@ -11,12 +12,13 @@ function AppRouter() {
       <div className={styles.container}>
         <Header />
         <Routes>
-          <Route path='/' element={
-            <>
-              <AddTask />
-              <Tasks />
-            </>
-          }>
+          <Route element={<TaskProvider />}>
+            <Route path='/' element={
+              <>
+                <AddTask />
+                <Tasks />
+              </>
+            }/>
           </Route>
           <Route path="/:taskTitle" element={<TaskDetails />}></Route>
         </Routes>

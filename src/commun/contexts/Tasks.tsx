@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { createContext, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Task, TaskContextValue, taskInitialValue } from "../../Types/Task";
+import { Task, TaskContextValue, taskInitialValue, tasksInitalValue } from "../../Types/Task";
 
-export const TaskContext = createContext<TaskContextValue | null>(null);
+export const TaskContext = createContext<TaskContextValue>(tasksInitalValue);
 TaskContext.displayName = "Tasks";
 
 export default function TaskProvider() {

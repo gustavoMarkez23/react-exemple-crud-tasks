@@ -16,3 +16,11 @@ export type TaskContextValue = {
   handleTaskDeletion: (taskId: string) => void,
   handleTaskClick: (taskId: string) => void
 }
+
+
+export const tasksInitalValue: TaskContextValue = {
+  tasks: [taskInitialValue],
+  handleTaskAddition: (taskTitle: string) => { },
+  handleTaskDeletion: (taskId: string) => { },
+  handleTaskClick: (taskId: string) => { }
+}
