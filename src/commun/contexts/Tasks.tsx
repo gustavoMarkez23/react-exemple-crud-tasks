@@ -1,16 +1,25 @@
 import { v4 as uuidv4 } from "uuid";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Task, TaskContextValue, taskInitialValue, tasksInitalValue } from "../../Types/Task";
+import { iTask, TaskContextValue, taskInitialValue, tasksInitalValue } from "../../Types/Task";
+import axios from "axios";
 
 export const TaskContext = createContext<TaskContextValue>(tasksInitalValue);
 TaskContext.displayName = "Tasks";
 
 export default function TaskProvider() {
-  const [tasks, setTasks] = useState<Task[]>([taskInitialValue]);
+  const [tasks, setTasks] = useState<iTask[]>([taskInitialValue]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const { data } = await axios.get('https://jsonplaceholder.cypress.io/todos?_limit=10');
+      setTasks(data);
+    }
+    fetchTasks();
+  }, []);
 
   const handleTaskAddition = (taskTitle: string) => {
-    const newTasks: Task[] = [...tasks, {
+    const newTasks: iTask[] = [...tasks, {
       id: uuidv4(),
       title: taskTitle,
       completed: false

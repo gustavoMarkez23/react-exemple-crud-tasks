@@ -20,7 +20,7 @@ function AppRouter() {
               </>
             }/>
           </Route>
-          <Route path="/:taskTitle" element={<TaskDetails />}></Route>
+          <Route path="/:taskid" element={<TaskDetails />}></Route>
         </Routes>
       </div>
     </Router>

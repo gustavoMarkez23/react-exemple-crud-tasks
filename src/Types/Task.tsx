@@ -1,4 +1,4 @@
-export interface Task {
+export interface iTask {
   id: string;
   title: string;
   completed: boolean;
@@ -11,7 +11,7 @@ export const taskInitialValue = {
 }
 
 export type TaskContextValue = {
-  tasks: Task[],
+  tasks: iTask[],
   handleTaskAddition: (taskTitle: string) => void,
   handleTaskDeletion: (taskId: string) => void,
   handleTaskClick: (taskId: string) => void
