@@ -18,9 +18,9 @@ function AppRouter() {
                 <AddTask />
                 <Tasks />
               </>
-            }/>
+            } />
+            <Route path="/:taskid" element={<TaskDetails />}></Route>
           </Route>
-          <Route path="/:taskid" element={<TaskDetails />}></Route>
         </Routes>
       </div>
     </Router>

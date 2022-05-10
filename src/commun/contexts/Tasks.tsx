@@ -1,30 +1,32 @@
 import { v4 as uuidv4 } from "uuid";
 import { createContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { iTask, TaskContextValue, taskInitialValue, tasksInitalValue } from "../../Types/Task";
+import { iTask, TaskContextValue, tasksInitalValue } from "../../Types/Task";
 import axios from "axios";
 
 export const TaskContext = createContext<TaskContextValue>(tasksInitalValue);
 TaskContext.displayName = "Tasks";
 
 export default function TaskProvider() {
-  const [tasks, setTasks] = useState<iTask[]>([taskInitialValue]);
+  const [tasks, setTasks] = useState<iTask[] | []>([]);
 
   useEffect(() => {
     const fetchTasks = async () => {
       const { data } = await axios.get('https://jsonplaceholder.cypress.io/todos?_limit=10');
-      setTasks(data);
+      setTasks(data.map((o: any) => ({ ...o, id: uuidv4() })));
     }
-    fetchTasks();
+    if (tasks.length == 0) fetchTasks();
   }, []);
 
   const handleTaskAddition = (taskTitle: string) => {
-    const newTasks: iTask[] = [...tasks, {
-      id: uuidv4(),
-      title: taskTitle,
-      completed: false
-    }];
-    setTasks(newTasks);
+    setTasks(prior => [
+      ...prior,
+      {
+        id: uuidv4(),
+        title: taskTitle,
+        completed: false
+      }
+    ]);
   }
 
   const handleTaskDeletion = (taskId: string) => {

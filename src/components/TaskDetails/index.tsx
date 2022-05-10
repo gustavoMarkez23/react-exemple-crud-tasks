@@ -9,8 +9,6 @@ function TaskDetails() {
   const navigate = useNavigate();
   const { taskid } = useParams();
 
-  console.log(taskid);
-
   return (
     <>
       <div className={styles['back-button-container']}>
